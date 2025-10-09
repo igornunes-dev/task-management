@@ -35,6 +35,9 @@ seed:
 model:
 	$(DOCKER_COMPOSE) exec app php artisan make:model $(name) -m
 
+policy:
+	$(DOCKER_COMPOSE) exec app php artisan make:policy $(name)
+
 controller:
 	$(DOCKER_COMPOSE) exec app php artisan make:controller $(name) --resource
 
