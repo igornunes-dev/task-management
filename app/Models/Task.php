@@ -2,17 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\TaskStatus;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use \Illuminate\Support\Str;
+use Illuminate\Support\Str;
 
-class User extends Authenticatable
+class Task extends Model
 {
-    use HasFactory, Notifiable, TwoFactorAuthenticatable, SoftDeletes;
+
+    use SoftDeletes;
 
     protected static function boot()
     {
@@ -34,19 +32,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
+        'title',
+        'user_id',
+        'description',
+        'status',
     ];
 
     /**
@@ -57,8 +46,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'status' => TaskStatus::class,
         ];
     }
 }

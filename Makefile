@@ -21,7 +21,7 @@ db-bash:
 	$(DOCKER_COMPOSE) exec db bash
 
 db:
-	$(DOCKER_COMPOSE) exec db psql -U $(DB_USERNAME) -d $(DB_DATABASE)
+	$(DOCKER_COMPOSE) exec db psql -U postgres -d task
 
 migrate:
 	$(DOCKER_COMPOSE) exec app php artisan migrate
