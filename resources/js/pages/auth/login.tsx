@@ -3,7 +3,6 @@ import { useForm, Head, Link } from '@inertiajs/react';
 import { LoaderCircle, ArrowLeft } from 'lucide-react';
 import InputError from '@/components/input-error';
 
-// Supondo que as suas rotas de registo e recuperação de password estão definidas
 import { register } from '@/routes';
 
 interface LoginProps {
@@ -123,8 +122,17 @@ export default function Login({ status }: LoginProps) {
                             Registar
                         </Link>
                     </div>
+
+                    <div className="mt-8 rounded-lg border border-dashed border-[#3E3E3A] p-4 text-center">
+                        <p className="text-sm font-medium text-gray-300">Para logar use:</p>
+                        <div className="mt-2 text-xs text-gray-400">
+                            <p><span className="font-semibold">Email:</span> test@gmail.com</p>
+                            <p><span className="font-semibold">Senha:</span> password</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
     );
 }
+

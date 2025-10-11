@@ -24,10 +24,16 @@ class TaskRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules =  [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
         ];
+
+        if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
+            $rules['status'] = ['required', 'string', Rule::in(array_column(TaskStatus::cases(), 'value'))];
+        }
+
+        return $rules;
     }
 }
 

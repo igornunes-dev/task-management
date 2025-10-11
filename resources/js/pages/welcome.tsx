@@ -3,7 +3,6 @@ import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { CheckSquare, Filter, LayoutDashboard, ArrowRight } from 'lucide-react';
 
-// Supondo que as suas rotas de login e registo estão definidas
 import { login, register, dashboard } from '@/routes';
 
 export default function Welcome() {
@@ -33,7 +32,14 @@ export default function Welcome() {
             <div className="flex min-h-screen flex-col bg-[#161615] text-[#EDEDEC]">
                 <header className="w-full px-6 py-4 sm:px-10">
                     <nav className="mx-auto flex max-w-7xl items-center justify-between">
-                        <span className="text-xl font-bold">TaskManager</span>
+                        <div className="flex items-center gap-2">
+                            <img
+                                src="/logo.svg"
+                                alt="App Logo"
+                                className="h-8 w-8" // tamanho da logo
+                            />
+                            <span className="text-xl font-bold text-white">TaskManager</span>
+                        </div>
                         <div className="flex items-center gap-4 text-sm">
                             {auth.user ? (
                                 <Link

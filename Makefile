@@ -35,6 +35,9 @@ seed:
 model:
 	$(DOCKER_COMPOSE) exec app php artisan make:model $(name) -m
 
+enum:
+	$(DOCKER_COMPOSE) exec app php artisan make:enum
+
 policy:
 	$(DOCKER_COMPOSE) exec app php artisan make:policy $(name)
 
