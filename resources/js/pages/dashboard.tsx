@@ -15,7 +15,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const StatusBadge = ({ status }: { status: string }) => {
-    // Classes de estilo ajustadas para ambos os temas
     const statusStyles: { [key: string]: string } = {
         'pendente': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-500/20 dark:text-yellow-400',
         'em andamento': 'bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-400',
@@ -26,6 +25,25 @@ const StatusBadge = ({ status }: { status: string }) => {
             {status.replace('_', ' ')}
         </span>
     );
+};
+
+const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-lg dark:border-[#3E3E3A] dark:bg-[#1C1C1A]">
+                <p className="font-medium text-gray-900 dark:text-white">
+                    {payload[0].name}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Quantidade: <span className="font-semibold">{payload[0].value}</span>
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Porcentagem: <span className="font-semibold">{payload[0].payload.percent}%</span>
+                </p>
+            </div>
+        );
+    }
+    return null;
 };
 
 interface DashboardProps extends PageProps {
@@ -50,7 +68,6 @@ export default function Dashboard() {
             return () => clearTimeout(timer);
         }
     }, [flash?.success]);
-
 
     const COLORS: { [key: string]: string } = {
         'Pendente': '#FBBF24',
@@ -107,11 +124,35 @@ export default function Dashboard() {
                             </div>
                             <ResponsiveContainer width="100%" height={300}>
                                 <PieChart>
-                                    <Pie data={taskStats} cx="50%" cy="50%" labelLine={false} outerRadius={100} fill="#8884d8" dataKey="count" nameKey="name" label={({ percent }) => `${percent}%`} strokeWidth={2}>
-                                        {taskStats.map((entry) => ( <Cell key={`cell-${entry.name}`} fill={COLORS[entry.name]} className="transition-all hover:opacity-80"/>))}
+                                    <Pie
+                                        data={taskStats}
+                                        cx="50%"
+                                        cy="50%"
+                                        labelLine={false}
+                                        outerRadius={100}
+                                        fill="#8884d8"
+                                        dataKey="count"
+                                        nameKey="name"
+                                        label={({ percent }) => `${percent}%`}
+                                        strokeWidth={2}
+                                    >
+                                        {taskStats.map((entry) => (
+                                            <Cell
+                                                key={`cell-${entry.name}`}
+                                                fill={COLORS[entry.name]}
+                                                className="transition-all hover:opacity-80"
+                                            />
+                                        ))}
                                     </Pie>
-                                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb' }} wrapperClassName="dark:[&_.recharts-tooltip-item]:!text-white dark:[&_.recharts-tooltip-wrapper]:!bg-[#1C1C1A] dark:[&_.recharts-tooltip-wrapper]:!border-[#3E3E3A]"/>
-                                    <Legend formatter={(value) => <span className="text-sm font-medium text-gray-800 dark:text-white">{value}</span>}/>
+                                    {/* Tooltip customizado que funciona no modo escuro */}
+                                    <Tooltip content={<CustomTooltip />} />
+                                    <Legend
+                                        formatter={(value) => (
+                                            <span className="text-sm font-medium text-gray-800 dark:text-white">
+                                                {value}
+                                            </span>
+                                        )}
+                                    />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
@@ -125,7 +166,10 @@ export default function Dashboard() {
                                 <ul className="space-y-3">
                                     {recentTasks.map((task) => (
                                         <li key={task.id}>
-                                            <Link href={tasks.show({ task: task.id })} className="flex items-center justify-between rounded-md bg-gray-50 p-3 transition-colors hover:bg-gray-100 dark:bg-[#2a2a28] dark:hover:bg-[#3E3E3A]">
+                                            <Link
+                                                href={tasks.show({ task: task.id })}
+                                                className="flex items-center justify-between rounded-md bg-gray-50 p-3 transition-colors hover:bg-gray-100 dark:bg-[#2a2a28] dark:hover:bg-[#3E3E3A]"
+                                            >
                                                 <div>
                                                     <p className="font-semibold">{task.title}</p>
                                                     <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -149,4 +193,3 @@ export default function Dashboard() {
         </AppLayout>
     );
 }
-

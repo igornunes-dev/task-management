@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Edit, Trash2, Calendar, Tag, ArrowLeft } from 'lucide-react';
+import { Edit, Trash2, Calendar, Tag, ArrowLeft, Play, CheckCircle } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type PageProps, type Task } from '@/types';
 import { useState } from 'react';
@@ -52,10 +52,55 @@ export default function ShowTask({ task }: ShowTaskProps) {
     ];
 
     const updateStatus = (newStatus: Task['status']) => {
-        // Supondo que você tenha uma rota para atualizar apenas o status
         router.patch(`/tasks/${task.id}/status`, { status: newStatus }, {
             preserveScroll: true,
         });
+    };
+
+    // Função para determinar quais botões mostrar baseado no status atual
+    const getStatusButtons = () => {
+        switch (task.status) {
+            case 'pending':
+                return (
+                    <>
+                        <button
+                            onClick={() => updateStatus('in_progress')}
+                            className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+                        >
+                            <Play className="h-4 w-4" />
+                            Iniciar Tarefa
+                        </button>
+                        <button
+                            onClick={() => updateStatus('completed')}
+                            className="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-700"
+                        >
+                            <CheckCircle className="h-4 w-4" />
+                            Marcar como Concluída
+                        </button>
+                    </>
+                );
+
+            case 'in_progress':
+                return (
+                    <button
+                        onClick={() => updateStatus('completed')}
+                        className="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-700"
+                    >
+                        <CheckCircle className="h-4 w-4" />
+                        Marcar como Concluída
+                    </button>
+                );
+
+            case 'completed':
+                return (
+                    <div className="text-sm text-gray-500 dark:text-gray-400 italic">
+                        Tarefa concluída
+                    </div>
+                );
+
+            default:
+                return null;
+        }
     };
 
     return (
@@ -104,16 +149,7 @@ export default function ShowTask({ task }: ShowTaskProps) {
                         <StatusBadge status={task.status} />
                         <div className="flex gap-2">
                             {/* Botões de mudança de status */}
-                            {task.status === 'pending' && (
-                                <button onClick={() => updateStatus('in_progress')} className="rounded-md bg-blue-600 px-3 py-1 text-xs font-semibold text-white hover:bg-blue-700">
-                                    Iniciar Tarefa
-                                </button>
-                            )}
-                            {task.status === 'in_progress' && (
-                                <button onClick={() => updateStatus('completed')} className="rounded-md bg-green-600 px-3 py-1 text-xs font-semibold text-white hover:bg-green-700">
-                                    Marcar como Concluída
-                                </button>
-                            )}
+                            {getStatusButtons()}
                         </div>
                     </div>
 
@@ -157,4 +193,3 @@ export default function ShowTask({ task }: ShowTaskProps) {
         </AppLayout>
     );
 }
-

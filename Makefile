@@ -26,6 +26,9 @@ db:
 migrate:
 	$(DOCKER_COMPOSE) exec app php artisan migrate
 
+composer:
+	composer install
+
 fresh:
 	$(DOCKER_COMPOSE) exec app php artisan migrate:fresh
 
