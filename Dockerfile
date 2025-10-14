@@ -26,5 +26,5 @@ COPY . .
 
 RUN chown -R www-data:www-data /var/www
 
-CMD sh -c "chmod -R 777 storage bootstrap/cache && php-fpm"
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 

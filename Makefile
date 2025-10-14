@@ -29,6 +29,9 @@ migrate:
 fresh:
 	$(DOCKER_COMPOSE) exec app php artisan migrate:fresh
 
+env:
+	cp .env.example .env
+
 seed:
 	$(DOCKER_COMPOSE) exec app php artisan db:seed
 
