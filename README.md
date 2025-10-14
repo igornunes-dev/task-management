@@ -46,20 +46,20 @@ Before starting, make sure you have the following tools installed on your machin
 
 ## 🚀 Installation and Local Setup
 
-### 1️⃣ Clone the Repository
+### 1 Clone the Repository
 
 ```bash
 git clone <YOUR_REPOSITORY_URL>
 cd task-management
 ```
 
-### 2️⃣ Switch to the Development Branch
+### 2 Switch to the Development Branch
 
 ```bash
 git checkout dev
 ```
 
-### 3️⃣ Configure the Environment
+### 3 Configure the Environment
 
 Copy the example file `.env.example` to create your own `.env` configuration file.
 
@@ -69,14 +69,22 @@ make env
 cp .env.example .env
 ```
 
-### 4️⃣ Adjust Permissions (Linux/macOS Only)
+### 4 Composer install
+
+```bash
+make composer
+# or
+composer install
+```
+
+### 5 Adjust Permissions (Linux/macOS Only)
 
 ```bash
 sudo chown -R $USER:www-data storage bootstrap/cache
 sudo chmod -R 775 storage bootstrap/cache
 ```
 
-### 5️⃣ Start the Containers
+### 6 Start the Containers
 
 ```bash
 make up
@@ -86,7 +94,7 @@ docker compose up --build -d
 
 > **Note:** The first run may take a few minutes as Docker downloads the images and builds the containers.
 
-### 6️⃣ Generate the Application Key
+### 7 Generate the Application Key
 
 ```bash
 make key
@@ -94,7 +102,7 @@ make key
 docker compose exec app php artisan key:generate
 ```
 
-### 7️⃣ Run Database Migrations
+### 8 Run Database Migrations
 
 ```bash
 make fresh
