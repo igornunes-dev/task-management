@@ -39,7 +39,7 @@ export default function Login({ status }: LoginProps) {
                     </Link>
 
                     <div className="mb-8 text-center">
-                        <h1 className="text-3xl font-bold">Aceda à sua Conta</h1>
+                        <h1 className="text-3xl font-bold">Acesse sua Conta</h1>
                         <p className="mt-2 text-gray-400">Continue a organizar o seu sucesso.</p>
                     </div>
 

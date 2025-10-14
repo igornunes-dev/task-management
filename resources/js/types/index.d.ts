@@ -52,11 +52,9 @@ export type SharedData = PageProps;
 
 
 // --- TIPOS DE NAVEGAÇÃO E LAYOUT ---
-
-// Definição para os itens de Breadcrumb
 export interface BreadcrumbItem {
     title: string;
-    href?: string; // Mantido como opcional para maior flexibilidade
+    href?: string;
 }
 
 // Definição para um item de navegação
