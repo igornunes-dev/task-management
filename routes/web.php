@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tasks/pending', [TaskController::class, 'pending'])->name('tasks.pending');
     Route::get('/tasks/in_progress', [TaskController::class, 'progress'])->name('tasks.in_progress');
     Route::get('/tasks/completed', [TaskController::class, 'completed'])->name('tasks.completed');
+    Route::get('/tasks/kanbam', [TaskController::class, 'kanbam'])->name('tasks.kanbam');
 
 
     Route::patch('/tasks/{task}/status', [TaskController::class, 'status'])->name('tasks.status');

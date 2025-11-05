@@ -29,6 +29,25 @@ class TaskController extends Controller
         return Inertia::render('tasks/index', [ 'tasks' => $tasks, ]);
     }
 
+    public function kanbam()
+    {
+        $tasks = Task::where('user_id', auth()->id())
+            ->latest()
+            ->get()
+            ->map(function ($task) {
+                return [
+                    'id' => $task->id,
+                    'title' => $task->title,
+                    'status' => $task->status->value,
+                    'created_at' => $task->created_at->toISOString(),
+                ];
+            });
+
+        return Inertia::render('tasks/kanbam', [
+            'tasks' => $tasks,
+        ]);
+    }
+
     public function pending(): InertiaResponse
     {
         $tasks = Task::where('user_id', auth()->id())
@@ -136,9 +155,8 @@ class TaskController extends Controller
             'status' => $validatedData['status'],
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Tarefa atualizada com sucesso!');
+        return back()->with('success', 'Tarefa atualizada com sucesso!');
     }
-
 
     public function destroy(Task $task)
     {

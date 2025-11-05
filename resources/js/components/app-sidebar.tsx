@@ -41,6 +41,11 @@ const mainNavItems: NavItem[] = [
         title: 'Tarefas Concluídas',
         href: tasks.completed(),
         icon: ClipboardList,
+    },
+    {
+        title: 'Kanbam de Tarefas',
+        href: tasks.kanbam(),
+        icon: ClipboardList,
     }
 ];
 

@@ -79,7 +79,6 @@ export default function Dashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
 
-            {/* Notificação de Sucesso */}
             <div
                 className={`fixed top-6 right-6 z-50 flex items-center gap-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 px-5 py-4 text-white shadow-2xl backdrop-blur-sm transition-all duration-500 ease-out ${
                     showSuccess
@@ -87,7 +86,9 @@ export default function Dashboard() {
                         : 'translate-x-[120%] opacity-0 scale-95'
                 }`}
             >
-                {/* ... conteúdo da notificação ... */}
+                {flash?.success && (
+                    <span className="font-semibold">{flash.success}</span>
+                )}
             </div>
 
             <div className="flex h-full flex-1 flex-col gap-8 p-4 md:p-8 text-gray-900 dark:text-white">
